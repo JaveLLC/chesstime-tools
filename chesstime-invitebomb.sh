@@ -22,5 +22,7 @@ while true; do
 
   gid=$(curl  -H 'Accept: */*' -H 'User-Agent: haptic_chess/7.8.8.2 CFNetwork/894 Darwin/17.4.0' -H 'Accept-Language: en-us' --compressed http://${_SERV_HOST}/jgame/active?tkn=${_TOKEN} | jq .result.myInvites[].id)
 
-  curl  -H 'Accept: */*' -H 'User-Agent: haptic_chess/7.8.8.2 CFNetwork/894 Darwin/17.4.0' -H 'Accept-Language: en-us' --data "{ }" --compressed "http://${_SERV_HOST}/juser/invite/delete/$gid?tkn=${_TOKEN}"
+  for i in $gid; do
+    curl -H 'Accept: */*' -H 'User-Agent: haptic_chess/7.8.8.2 CFNetwork/894 Darwin/17.4.0' -H 'Accept-Language: en-us' --data "{ }" --compressed "http://${_SERV_HOST}/juser/invite/delete/$i?tkn=${_TOKEN}"
+  done
 done
