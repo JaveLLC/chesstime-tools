@@ -2,7 +2,7 @@
 # by taup1n and slobber
 # usage: $0 <login id> <password> <target profile id>
 
-set -ex
+set -e
 
 if [ $# -lt 3 ]; then
   echo "$0 <login id> <password> <target profile id>"
