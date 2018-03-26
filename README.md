@@ -6,4 +6,4 @@ invite your friend to an infinite amount of games with bonus infinite push notif
 
 dependencies: curl, jq
 
-usage: ./chesstime-invitebomb.sh <your id> <your password> <target id>
+usage: `./chesstime-invitebomb.sh <your id> <your password> <target id>`
