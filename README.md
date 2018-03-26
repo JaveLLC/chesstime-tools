@@ -1,6 +1,15 @@
 # Chesstime Tools
 Various elite tooling for the Haptic Chess Time application
 
+## chesstime-leadersbomb.sh
+Invite all the leaders to games. A lot.
+
+Dependencies (`brew install jq curl`):
+- `curl`
+- `jq`
+
+Usage: `./chesstime-leadersbomb.sh <your id> <your password>`
+
 ## chesstime-invitebomb.sh
 Invite your friend to an infinite amount of games with bonus infinite push notifications.
 
