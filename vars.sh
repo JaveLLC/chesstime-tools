@@ -30,12 +30,23 @@ function bestmove() {
     return 1
   fi
 
-  bestmove=$(cat << EOF | stockfish
-setoption name Threads value 4
-setoption name Hash value 1024
-position fen ${1}
-go movetime 60000 # analyze for 60s
-EOF)
+  timeout=$RANDOM
 
-  echo ${bestmove} | grep bestmove | sed -e 's/^.*bestmove //'
+  >&2 echo Using a timeout of ${timeout}
+
+  bestmove=$(expect -c "
+    spawn stockfish
+    expect -timeout 1000 Stockfish
+    send \"setoption name Threads value 4\r\"
+    sleep 1
+    send \"setoption name Hash value 1024\r\"
+    sleep 1
+    send \"position fen ${1}\r\"
+    sleep 1
+    send \"go movetime ${timeout}\r\"
+    expect -timeout 66 bestmove
+    "
+  )
+
+  echo ${bestmove} | grep bestmove | sed -e 's/^.*bestmove //' | cut -d' ' -f 1
 }
