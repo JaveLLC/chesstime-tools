@@ -1,9 +1,10 @@
 # Chesstime Tools
 Various elite tooling for the Haptic Chess Time application
 
-Dependencies (`brew install jq curl`):
+Dependencies (`brew install <dependency>`):
 - `curl`
 - `jq`
+- `stockfish`
 
 ## chesstime-leadersbomb.sh
 Invite all the leaders to games. A lot.
