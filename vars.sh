@@ -38,11 +38,8 @@ function bestmove() {
     spawn stockfish
     expect -timeout 1000 Stockfish
     send \"setoption name Threads value 4\r\"
-    sleep 1
     send \"setoption name Hash value 1024\r\"
-    sleep 1
     send \"position fen ${1}\r\"
-    sleep 1
     send \"go movetime ${timeout}\r\"
     expect -timeout 66 bestmove
     "
