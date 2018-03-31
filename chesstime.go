@@ -30,6 +30,15 @@ func main() {
 }
 
 func gamedataToFen(data string) string {
+    /* According to https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation#Definition we have this to accomplish:
+       - piece placement from white's perspective - done
+       - active colour - TODO
+       - castling availability - TODO
+       - En passant target square - TODO
+       - halfmove clock - TODO
+       - fullmove number - TODO
+    */
+
     bored := position.New()
     bored.Clear()
 
@@ -37,6 +46,7 @@ func gamedataToFen(data string) string {
 
     boarddata := strings.Split(splitdata[1], ",")
 
+    // Takes care of item #1 on our list above - piece placement
     for i := 0; i < len(boarddata); i++ {
         pos := strings.Replace(boarddata[i], "Board:", "", -1)
 
