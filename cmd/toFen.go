@@ -17,6 +17,7 @@ package cmd
 import (
     "fmt"
     "strings"
+    "strconv"
 
     "github.com/spf13/cobra"
 
@@ -64,8 +65,8 @@ func gamedataToFen(data string) string {
        - active colour - TODO
        - castling availability - TODO
        - En passant target square - TODO
-       - halfmove clock - TODO
-       - fullmove number - TODO
+       - halfmove clock - TODO but maybe we don't care
+       - fullmove number - done
     */
 
     bored := position.New()
@@ -98,6 +99,11 @@ func gamedataToFen(data string) string {
 
         bored.Put(p, s)
     }
+
+    bored.ActiveColor = piece.White // TODO: holy crap how do we do this where do we get this
+
+    // takes care of the fullmove number
+    bored.MoveNumber, _ = strconv.Atoi(strings.Split(splitdata[2], ":")[1])
 
     fmt.Println(bored)
 
