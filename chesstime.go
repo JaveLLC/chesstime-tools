@@ -1,3 +1,10 @@
+// Run with something like
+// ` $ go run chesstime.go "GOpt:Normal\nBoard:A8=BR,B8=BN,C8=BB,D8=BQ,E8=BK,G8=BN,H8=BR,A7=BP,B7=BP,C7=BP,F7=BP,G7=BP,H7=BP,E6=BP,C5=BB,E4=WP,F3=WN,A2=WP,B2=WP,C2=WP,D2=WP,G2=WP,H2=WP,A1=WR,B1=WN,C1=WB,D1=WQ,E1=WK,F1=WB,H1=WR\nMoveCount:8\nMvSncePwnOrCapture:2\nEP:\nLegMove:E4-E5,F3-D4,F3-H4,F3-G1,F3-G5,F3-E5,A2-A3,A2-A4,B2-B3,B2-B4,C2-C3,C2-C4,D2-D3,D2-D4,G2-G3,G2-G4,H2-H3,H2-H4,B1-C3,B1-A3,D1-E2,E1-E2,F1-E2,F1-D3,F1-C4,F1-B5,F1-A6,H1-G1\nMoves:E2-E4--F--F-F-WP,D7-D5--F--F-F-BP,F2-F3--F--F-F-WP,D5-E4--F-WP-F-F-BP,F3-E4--F-BP-F-F-WP,E7-E6--F--F-F-BP,G1-F3--F--F-F-WN,F8-C5--F--F-F-BB\nCastleSquares:A1,E1,H1,A8,E8,H8"`
+//
+// forgive my first-time golang mistakes for fuck's sake
+//
+// long live the jave
+
 package main
 
 import (
