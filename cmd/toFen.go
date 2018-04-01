@@ -1,17 +1,3 @@
-// Copyright © 2018 OrcaLLC
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 package cmd
 
 import (
@@ -90,7 +76,7 @@ func gamedataToFen(data string) string {
 
     boarddata := strings.Split(splitdata[1], ",")
 
-    // Takes care of item #1 on our list above - piece placement
+    // Takes care of item #1
     for i := 0; i < len(boarddata); i++ {
         pos := strings.Replace(boarddata[i], "Board:", "", -1)
 
@@ -100,7 +86,7 @@ func gamedataToFen(data string) string {
         bored.Put(p, s)
     }
 
-    // Takes care of item #2 on our list above - active colour
+    // Takes care of item #2
     switch string(splitdata[6][strings.LastIndex(splitdata[6], "-") + 1]) {
     case "B":
         bored.ActiveColor = colourmap["W"]
@@ -108,11 +94,11 @@ func gamedataToFen(data string) string {
         bored.ActiveColor = colourmap["B"]
     }
 
-    // takes care of the fullmove number
+    // Takes care of item #6
     bored.MoveNumber, _ = strconv.Atoi(strings.Split(splitdata[2], ":")[1])
 
     fmt.Println(bored)
 
-    encoded, _ := fen.Encode(bored) // TODO: how in the world can i do both of these in one line?
+    encoded, _ := fen.Encode(bored)
     return encoded
 }
