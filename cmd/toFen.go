@@ -106,7 +106,19 @@ func gamedataToFen(data string) string {
         bored.CastlingRights[piece.Black][board.ShortSide] = true
     }
 
-    // En passant target square - TODO
+    // En passant target square
+    lastMoveIndex := strings.LastIndex(splitdata[6], ",")
+    lastMove := string(splitdata[6][lastMoveIndex + 1:lastMoveIndex + 6])
+    lastPieceMoved := string(splitdata[6][strings.LastIndex(splitdata[6], "-") + 2])
+
+    if (lastPieceMoved == "P" && lastMove[0] == lastMove[3]) {
+        if (string(lastMove[1]) == "7" && string(lastMove[4]) == "5") {
+            bored.EnPassant = square.Parse(string(lastMove[0]) + "6")
+        } else if (string(lastMove[1]) == "2" && string(lastMove[4]) == "4") {
+            bored.EnPassant = square.Parse(string(lastMove[0]) + "3")
+        }
+    }
+
     // halfmove clock - TODO but maybe we don't care
 
     // fullmove number
