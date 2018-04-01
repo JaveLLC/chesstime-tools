@@ -11,6 +11,7 @@ import (
     "github.com/andrewbackes/chess/piece"
     "github.com/andrewbackes/chess/position"
     "github.com/andrewbackes/chess/position/square"
+    "github.com/andrewbackes/chess/position/board"
 )
 
 var gamedata string
@@ -46,15 +47,6 @@ func init() {
 // CastleSquares:A1,E1,H1,A8,E8,H8"
 
 func gamedataToFen(data string) string {
-    /* According to https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation#Definition we have this to accomplish:
-       - piece placement from white's perspective - done
-       - active colour - done
-       - castling availability - TODO
-       - En passant target square - TODO
-       - halfmove clock - TODO but maybe we don't care
-       - fullmove number - done
-    */
-
     piecemap := map[string]piece.Type {
         "P": piece.Pawn,
         "N": piece.Knight,
@@ -76,7 +68,7 @@ func gamedataToFen(data string) string {
 
     boarddata := strings.Split(splitdata[1], ",")
 
-    // Takes care of item #1
+    // piece placement from white's perspective
     for i := 0; i < len(boarddata); i++ {
         pos := strings.Replace(boarddata[i], "Board:", "", -1)
 
@@ -86,7 +78,7 @@ func gamedataToFen(data string) string {
         bored.Put(p, s)
     }
 
-    // Takes care of item #2
+    // active colour
     switch string(splitdata[6][strings.LastIndex(splitdata[6], "-") + 1]) {
     case "B":
         bored.ActiveColor = colourmap["W"]
@@ -94,7 +86,30 @@ func gamedataToFen(data string) string {
         bored.ActiveColor = colourmap["B"]
     }
 
-    // Takes care of item #6
+    // castling availability
+    castleSquares := strings.Replace(splitdata[7], "CastleSquares:", "", -1)
+    bored.CastlingRights[piece.White][board.LongSide] = false
+    bored.CastlingRights[piece.White][board.ShortSide] = false
+    bored.CastlingRights[piece.Black][board.LongSide] = false
+    bored.CastlingRights[piece.Black][board.ShortSide] = false
+
+    if (strings.Contains(castleSquares, "A1") && strings.Contains(castleSquares, "E1")) {
+        bored.CastlingRights[piece.White][board.LongSide] = true
+    }
+    if (strings.Contains(castleSquares, "H1") && strings.Contains(castleSquares, "E1")) {
+        bored.CastlingRights[piece.White][board.ShortSide] = true
+    }
+    if (strings.Contains(castleSquares, "A8") && strings.Contains(castleSquares, "E8")) {
+        bored.CastlingRights[piece.Black][board.LongSide] = true
+    }
+    if (strings.Contains(castleSquares, "H8") && strings.Contains(castleSquares, "E8")) {
+        bored.CastlingRights[piece.Black][board.ShortSide] = true
+    }
+
+    // En passant target square - TODO
+    // halfmove clock - TODO but maybe we don't care
+
+    // fullmove number
     bored.MoveNumber, _ = strconv.Atoi(strings.Split(splitdata[2], ":")[1])
 
     fmt.Println(bored)
