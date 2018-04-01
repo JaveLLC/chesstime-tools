@@ -62,12 +62,26 @@ func init() {
 func gamedataToFen(data string) string {
     /* According to https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation#Definition we have this to accomplish:
        - piece placement from white's perspective - done
-       - active colour - TODO
+       - active colour - done
        - castling availability - TODO
        - En passant target square - TODO
        - halfmove clock - TODO but maybe we don't care
        - fullmove number - done
     */
+
+    piecemap := map[string]piece.Type {
+        "P": piece.Pawn,
+        "N": piece.Knight,
+        "B": piece.Bishop,
+        "R": piece.Rook,
+        "Q": piece.Queen,
+        "K": piece.King,
+    }
+
+    colourmap := map[string]piece.Color {
+        "W": piece.White,
+        "B": piece.Black,
+    }
 
     bored := position.New()
     bored.Clear()
@@ -80,27 +94,19 @@ func gamedataToFen(data string) string {
     for i := 0; i < len(boarddata); i++ {
         pos := strings.Replace(boarddata[i], "Board:", "", -1)
 
-        piecemap := map[string]piece.Type {
-            "P": piece.Pawn,
-            "N": piece.Knight,
-            "B": piece.Bishop,
-            "R": piece.Rook,
-            "Q": piece.Queen,
-            "K": piece.King,
-        }
-
-        colourmap := map[string]piece.Color {
-            "W": piece.White,
-            "B": piece.Black,
-        }
-
         s := square.Parse(strings.Split(pos, "=")[0])
         p := piece.New(colourmap[string(pos[3])], piecemap[string(pos[4])])
 
         bored.Put(p, s)
     }
 
-    bored.ActiveColor = piece.White // TODO: holy crap how do we do this where do we get this
+    // Takes care of item #2 on our list above - active colour
+    switch string(splitdata[6][strings.LastIndex(splitdata[6], "-") + 1]) {
+    case "B":
+        bored.ActiveColor = colourmap["W"]
+    case "W":
+        bored.ActiveColor = colourmap["B"]
+    }
 
     // takes care of the fullmove number
     bored.MoveNumber, _ = strconv.Atoi(strings.Split(splitdata[2], ":")[1])
