@@ -119,7 +119,11 @@ func gamedataToFen(data string) string {
         }
     }
 
-    // halfmove clock - TODO but maybe we don't care
+    // halfmove clock
+    // The chess library counts _halfmoves_, so in FEN, this value is divided by two.
+    // I gave up on figuring out how ChessTime counts this number and will just leave this as-is.
+    fiftyMoveCount, _ := strconv.Atoi(strings.Replace(splitdata[3], "MvSncePwnOrCapture:", "", -1))
+    bored.FiftyMoveCount = uint64(fiftyMoveCount)
 
     // fullmove number
     bored.MoveNumber, _ = strconv.Atoi(strings.Split(splitdata[2], ":")[1])
