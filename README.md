@@ -30,9 +30,9 @@ Real customers talking about invitebomb [TM]:
 ```
 
 ## Contributors
-See [here](https://github.com/JaveLLC/chesstime-tools/graphs/contributors)
+See [here](https://github.com/OrcaLLC/chesstime-tools/graphs/contributors)
 
-Wanna contribute? Open a [pee arr](https://github.com/JaveLLC/chesstime-tools/pulls).
+Wanna contribute? Open a [pee arr](https://github.com/OrcaLLC/chesstime-tools/pulls).
 
 ## License
 [MIT](LICENSE) it is!
